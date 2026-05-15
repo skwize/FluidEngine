@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="using:FluidEngine"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:DataType="local:globalNotification"
+        MinWidth="302" MinHeight="80"
+        Width="302" Height="80"
+        ShowInTaskbar="False"
+        SystemDecorations="None"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        ExtendClientAreaToDecorationsHint="True"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        Name="NotifyWindow"
+        Topmost="True"
+        x:Class="FluidEngine.globalNotification"
+        HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+
+        <Panel>
+		     <ExperimentalAcrylicBorder IsHitTestVisible="False">
+                <ExperimentalAcrylicBorder.Material>
+                    <ExperimentalAcrylicMaterial
+                        TintColor="#7D1FFF"
+                        TintOpacity=".6"
+                        MaterialOpacity=".4" />
+                </ExperimentalAcrylicBorder.Material>
+            </ExperimentalAcrylicBorder>
+            <Label Content="Keyboard is locked!" Foreground="#fff" FontSize="28" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Panel>
+</Window>

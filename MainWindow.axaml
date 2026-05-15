@@ -1,0 +1,87 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="780" d:DesignHeight="550"
+        xmlns:local="using:FluidEngine"
+        x:DataType="local:MainWindow"
+        x:Class="FluidEngine.MainWindow"
+        Icon="/Assets/fluid_engine.ico"
+        Width="780" Height="550"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        Title="Fluid Engine"
+        Closing="Window_Closing">
+    <Window.Styles>
+        
+		<Style Selector="Button.navBtn">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width" Value="175"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="20 10"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Стиль при наведении курсора (PointerOver) -->
+        <Style Selector="Button.navBtn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#684895"/>
+            <Setter Property="BorderBrush" Value="#A394B8"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="TextBlock.Foreground" Value="White"/>
+        </Style>
+    </Window.Styles>
+        <Panel>
+            <!-- Этот блок отвечает за цвет и плотность размытия -->
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    TintColor="#7D1FFF"
+                    TintOpacity=".8"
+                    MaterialOpacity=".6" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+
+            <Grid>
+		        <Grid.ColumnDefinitions>
+			        <ColumnDefinition Width="220"/>
+			        <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                
+                <Border Classes="sideBar" Grid.Column="0" Margin="10 10" CornerRadius="10" Background="#60428A">
+					<StackPanel Margin="10 25" Orientation="Vertical" HorizontalAlignment="Center">
+						<Button x:Name="general_p" Classes="navBtn" Content="General" Click="general_p_Click"/>
+						<Button x:Name="fluidSnap_p" Classes="navBtn" Content="Fluid Snap" Click="fluidSnap_p_Click"/>
+						<Button Classes="navBtn" Content="Live Wallpapers"/>
+                    </StackPanel>
+                </Border>
+
+                <Grid Grid.Column="1" Margin="0 25 0 0">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="24"/>
+						<RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+
+
+                    <TransitioningContentControl Grid.Row="1" Foreground="#fff"
+                                             Content="{Binding CurrentPage}">
+                    <TransitioningContentControl.PageTransition>
+                        <!-- Duration задает время анимации (здесь 0.4 секунды) -->
+                        <CrossFade Duration="0:0:0.15" />
+                    </TransitioningContentControl.PageTransition>
+                </TransitioningContentControl>
+                </Grid>
+            </Grid>
+        </Panel>
+</Window>

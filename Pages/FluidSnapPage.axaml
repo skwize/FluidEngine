@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="560" d:DesignHeight="550"
+             xmlns:datacore="using:FluidEngine.DataCore"
+             x:DataType="datacore:HardwareData"
+             Background="Transparent"
+             x:Class="FluidEngine.FluidSnapPage">
+
+    <UserControl.Styles>
+        <Style Selector="Label.PageTitle">
+			<Setter Property="FontSize" Value="24"/>
+			<Setter Property="FontWeight" Value="Medium"/>
+			<Setter Property="Foreground" Value="#ffffff"/>
+        </Style>
+        <Style Selector="Border.SnapOverlayView">
+			<Setter Property="Background" Value="#8D40BF"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderBrush" Value="#E6C0FF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+    </UserControl.Styles>
+            
+    <StackPanel Orientation="Vertical" Margin="10"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Top" Spacing="32">
+
+		<StackPanel Orientation="Vertical" Spacing="20">
+			<Label Classes="PageTitle" Content="Custom Gaps"/>
+            <Border Width="420" Height="275"
+                    Background="#60428A" CornerRadius="10"
+                    BorderBrush="#E6C0FF" BorderThickness="2.5">
+                   <Grid x:Name="_snapOverlayView" RowSpacing="10" ColumnSpacing="10" Margin="10">
+				       <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                       </Grid.ColumnDefinitions>
+                       <Grid.RowDefinitions>
+					       <RowDefinition Height="*"/>
+					       <RowDefinition Height="*"/>
+                       </Grid.RowDefinitions>
+
+                       <Border  Classes="SnapOverlayView"
+                               Grid.Column="0" Grid.Row="0"
+                               Grid.ColumnSpan="1" Grid.RowSpan="2" />
+
+                       <Border Classes="SnapOverlayView"
+                               Grid.Column="1" Grid.Row="0"
+                               Grid.ColumnSpan="1" Grid.RowSpan="1" />
+
+                       <Border Classes="SnapOverlayView"
+                               Grid.Column="1" Grid.Row="1"
+                               Grid.ColumnSpan="1" Grid.RowSpan="1" />
+                   </Grid> 
+            </Border>
+             
+            <StackPanel Orientation="Horizontal" Height="50" Width="320">
+                <Slider x:Name="_windowGapValueSlider" Width="312" Value="10"
+                    IsSnapToTickEnabled="True" TickPlacement="BottomRight"
+                    Minimum="1" Maximum="20" Ticks="1, 5, 10, 15, 20"
+                    ValueChanged="Slider_ValueChanged"/>
+                <Label x:Name="_windowGapValueLabel" Margin="20 0 0 0"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

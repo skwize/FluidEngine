@@ -1,0 +1,175 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:controls="clr-namespace:FluidEngine.Pages.Controls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:datacore="using:FluidEngine.DataCore"
+             x:DataType="datacore:HardwareData"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="560" d:DesignHeight="550"
+             x:Class="FluidEngine.GeneralPage"
+             Background="Transparent">
+    <UserControl.Styles>
+        <Style Selector="Border.FeatureBody">
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="CornerRadius" Value="30"/>
+            <Setter Property="Background" Value="#60428A"/>
+        </Style>
+
+        <Style Selector="CheckBox.SwitchBox">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border x:Name="swt_bg" VerticalAlignment="Center" Background="#9877C5" Width="40" Height="22" CornerRadius="15" Padding="4 0">
+                        <Border.Transitions>
+                            <Transitions>
+                                <BrushTransition Property="Background" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                            </Transitions>
+                        </Border.Transitions>
+						<Border x:Name="swt_cr" Width="14" Height="14" CornerRadius="14" Background="#60428A" HorizontalAlignment="Left">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="Label.PageTitle">
+			<Setter Property="FontSize" Value="24"/>
+			<Setter Property="FontWeight" Value="Medium"/>
+			<Setter Property="Foreground" Value="#ffffff"/>
+        </Style>
+
+        <Style Selector="Label.headerLabel">
+            <Setter Property="Opacity" Value="1"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<DoubleTransition Property="Opacity" Duration="0:0:0.2" Easing="CubicEaseInOut"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Label.valueLabel">
+            <Setter Property="Opacity" Value="0"/>
+			<Setter Property="Transitions">
+				<Transitions>
+					<DoubleTransition Property="Opacity" Duration="0:0:0.2" Easing="CubicEaseInOut"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="controls|CircularProgressBar">
+			<Setter Property="Effect">
+				<DropShadowEffect OffsetX="0" OffsetY="0" Color="#000" BlurRadius="25" Opacity=".25"/>
+            </Setter>
+            <Setter Property="Transitions">
+				<Transitions>
+                    <!-- Анимация на 400мс с эффектом затухания (CubicEaseOut) -->
+                    <DoubleTransition Property="Value" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <!-- Стили для переключения состояний -->
+        <Style Selector="Panel.ProgressBarPanel:pointerover Label.headerLabel">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+        <Style Selector="Panel.ProgressBarPanel:pointerover Label.valueLabel">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+
+        <Style Selector="CheckBox.SwitchBox:checked /template/ Border#swt_cr">
+            <Setter Property="RenderTransform" Value="translateX(18px)" />
+        </Style>
+
+        <Style Selector="CheckBox.SwitchBox:unchecked /template/ Border#swt_cr">
+            <Setter Property="RenderTransform" Value="translateX(0px)" />
+        </Style>
+        <Style Selector="CheckBox.SwitchBox:checked /template/ Border#swt_bg">
+            <Setter Property="Background" Value="#BE9EE8"/>
+        </Style>
+
+        <Style Selector="CheckBox.SwitchBox:unchecked /template/ Border#swt_bg">
+            <Setter Property="Background" Value="#9877C5"/>
+        </Style>
+    </UserControl.Styles>
+
+  <StackPanel Orientation="Vertical" Margin="10"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Top" Spacing="32">
+
+    <StackPanel Orientation="Vertical" Spacing="20">
+        <Label Classes="PageTitle" Content="System Monitoring"/>
+		<StackPanel Orientation="Horizontal" Spacing="25"
+                HorizontalAlignment="Center">
+
+            <Panel Classes="ProgressBarPanel" Width="150" Height="150" Background="Transparent">
+                <controls:CircularProgressBar StrokeThickness="22" Value="{Binding CpuValue}" />
+                <Label Classes="headerLabel" Content="CPU"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="20" FontWeight="Medium"/>
+                <Label Classes="valueLabel" Content="{Binding CpuValue, StringFormat={}{0}%}"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="20" FontWeight="Medium"/>
+            </Panel>
+
+            <Panel Classes="ProgressBarPanel" Width="150" Height="150" Background="Transparent">
+                <controls:CircularProgressBar StrokeThickness="22" Value="{Binding RamValue}"/>
+                <Label Classes="headerLabel" Content="RAM"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="20" FontWeight="Medium"/>
+                <Label Classes="valueLabel" Content="{Binding RamValue, StringFormat={}{0}%}"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="20" FontWeight="Medium"/>
+            </Panel>
+            <Panel Classes="ProgressBarPanel" Width="150" Height="150" Background="Transparent">
+                <controls:CircularProgressBar StrokeThickness="22" Value="{Binding GpuValue}"/>
+                <Label Classes="headerLabel" Content="GPU"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="20" FontWeight="Medium"/>
+                <Label Classes="valueLabel" Content="{Binding GpuValue, StringFormat={}{0}%}"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="20" FontWeight="Medium"/>
+            </Panel>
+        </StackPanel>
+    </StackPanel>
+
+	  <StackPanel Orientation="Vertical" VerticalAlignment="Top" Spacing="20">
+        <Label Classes="PageTitle" Content="Features" />
+          <WrapPanel ItemSpacing="25" LineSpacing="20">
+              <Border Classes="FeatureBody">
+			      <Grid ColumnDefinitions="Auto, *"
+                        VerticalAlignment="Center" Margin="15 11">
+				      <Label Grid.Column="0" VerticalAlignment="Center"
+                             Content="Fluid Snap"/>
+                      <CheckBox x:Name="switchBtn_Snap" Classes="SwitchBox"
+                                Grid.Column="1" HorizontalAlignment="Right"
+                                Checked="switchBtn_Snap_Checked" Unchecked="switchBtn_Snap_Unchecked"/>
+                  </Grid>
+              </Border>
+              <Border Classes="FeatureBody">
+			      <Grid ColumnDefinitions="Auto, *"
+                        VerticalAlignment="Center" Margin="15 11">
+				      <Label Grid.Column="0" VerticalAlignment="Center"
+                             Content="Keys Lock"/>
+                      <CheckBox x:Name="switchBtn_KeysLock" Classes="SwitchBox"
+                                Grid.Column="1" HorizontalAlignment="Right"
+                                Checked="switchBtn_KeysLock_Checked" Unchecked="switchBtn_KeysLock_Unchecked"/>
+                  </Grid>
+              </Border>
+              <Border Classes="FeatureBody">
+			      <Grid ColumnDefinitions="Auto, *"
+                        VerticalAlignment="Center" Margin="15 11">
+				      <Label Grid.Column="0" VerticalAlignment="Center"
+                             Content="Live Wallpapers"/>
+                      <CheckBox x:Name="switchBtn_LiveWp" Classes="SwitchBox"
+                                Grid.Column="1" HorizontalAlignment="Right"/>
+                  </Grid>
+              </Border>
+          </WrapPanel>
+      </StackPanel>
+  </StackPanel>
+
+</UserControl>
